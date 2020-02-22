@@ -15,11 +15,9 @@ const Player = () => {
 
     const [player, setPlayerStats] = useState({
         playerName: 'Jimothy',
-        highDamage: 1,
-        critFails: 1,
-        criticalHits: 1,
-        strengthMod: 3,
-        dexMod: 4,
+        highDamage: 0,
+        critFails: 0,
+        criticalHits: 0,
         actions: [
             {
                 id:0,
@@ -28,6 +26,7 @@ const Player = () => {
                 damageType:'Bludgeoning',
                 diceAmt: 1,
                 dice: 4,
+                mod: 3,
                 result: 0,
                 damage: 0,
             },
@@ -38,6 +37,7 @@ const Player = () => {
                 damageType: 'Slashing',
                 diceAmt: 1,
                 dice: 6,
+                mod: 3,
                 result: 0,
                 damage: 0,
             },
@@ -48,6 +48,7 @@ const Player = () => {
                 damageType: 'Piercing',
                 diceAmt: 1,
                 dice: 6,
+                mod: 4,
                 result: 0,
                 damage: 0,
             }

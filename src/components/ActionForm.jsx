@@ -14,6 +14,22 @@ const Div =  styled.div`
     }
 }
 
+select {
+    height: 2.4em;
+    margin: 0 .5em;
+}
+.dice-select {
+    margin: .5em 0;
+}
+}
+input {
+    height: 2em;
+}
+
+button {
+    height: 2.3em;
+}
+
 `
 
 const ActionForm = (props) => {
@@ -47,6 +63,7 @@ const ActionForm = (props) => {
         damageType:'',
         diceAmt: 1,
         dice: 0,
+        mod: 0,
         damage: 0,
         });
     }
@@ -90,9 +107,10 @@ const ActionForm = (props) => {
                 </select>
 
                 <div className="dice-info">
-                    <div>
+                    
                        
                         <select 
+                            className='dice-select'
                             name='diceAmt'
                             value={newAction.diceAmt}
                             onChange={changeHandler}>
@@ -108,9 +126,28 @@ const ActionForm = (props) => {
                             <option value={9}>9</option>
                             <option value={10}>10</option>
                         </select>
-                    </div>
-                    <div>
+
                         <select 
+                            className='mod'
+                            name='mod'
+                            value={newAction.mod}
+                            onChange={changeHandler}>
+                            <option value='none'>Modifier</option>
+                            <option value={-3}>-3</option>
+                            <option value={-2}>-2</option>
+                            <option value={-1}>-1</option>
+                            <option value={0}>0</option>
+                            <option value={1}>+1</option>
+                            <option value={2}>+2</option>
+                            <option value={3}>+3</option>
+                            <option value={4}>+4</option>
+                            <option value={5}>+5</option>
+                            <option value={6}>+6</option>
+                        </select>
+                    
+                    
+                        <select 
+                            className='dice-select'
                             name='dice'
                             value={newAction.dice}
                             onChange={changeHandler}>
@@ -122,7 +159,7 @@ const ActionForm = (props) => {
                             <option value={12}>12</option>
                         </select>
                         
-                    </div>
+                    
 
                     
                     
