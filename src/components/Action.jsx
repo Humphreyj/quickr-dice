@@ -2,32 +2,39 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
-width: 100%;
 display: flex;
-justify-content: space-around;
+justify-content: center;
 align-items: center;
+padding: 2%;
+
+h5 {
+    font-size: 1em;
+}
 .dice-info {
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
 
         p {
-            margin: 0 .25em;
+            margin: 0 .1em;
         }
 }
 
 .action-result {
     margin-left: 3em;
     font-weight: bold;
+    font-size: .9em;
 }
 
 .action-damage {
     text-decoration: underline;
+    font-size: .9em;
 }
 
 button {
     height: 2em;
+    width: 3.8em;
 }
 `
 
@@ -48,10 +55,10 @@ const rollDamage = (amt,num) => {
     },0)
     if(props.type === 'Melee'){
         console.log('damage',damage);
-        setActionDamage(damage + props.player.strengthMod)
+        setActionDamage(damage + props.mod)
     }else if (props.type === 'Ranged'){
         console.log('damage',damage)
-        setActionDamage(damage + props.player.dexMod)
+        setActionDamage(damage + props.mod)
     }else if(props.type=== 'Dex Save') {
         setActionDamage(damage)
     }
@@ -74,10 +81,10 @@ const rollCriticalDamage = (amt,num) => {
     },0)
     if(props.type === 'Melee'){
         console.log('crit damage',criticalDamage);
-        setActionDamage((criticalDamage*2) + props.player.strengthMod)
+        setActionDamage((criticalDamage*2) + props.mod)
     }else if (props.type === 'Ranged'){
         console.log('crit damage',criticalDamage)
-        setActionDamage((criticalDamage*2) + props.player.dexMod)
+        setActionDamage((criticalDamage*2) + props.mod)
     }
 
     if(actionDamage > props.player.highDamage) {
@@ -90,42 +97,28 @@ const rollDice = (num) => {
     
     let result = actionResult;
     result = (Math.floor(Math.random() * num + 1));
-        
-        if(props.type === 'Melee'){
-            if(result === 20) {
-                console.log('Critical!')
-                props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
-                rollCriticalDamage(props.diceAmt ,props.dice)
-            }else {
-            console.log('roll',result + props.player.strengthMod);
-            setActionResult(result + props.player.strengthMod)
-            rollDamage(props.diceAmt,props.dice)
-            }
-        }else if(props.type === 'Ranged') {
         if(result === 20) {
             console.log('Critical!')
             props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
-            rollCriticalDamage(props.diceAmt,props.dice)
+            setActionResult(result + props.mod)
+            rollCriticalDamage(props.diceAmt ,props.dice)
         }else {
-            console.log('roll',result + props.player.dexMod, "dexMod")
-            setActionResult(result + props.player.dexMod)
-            rollDamage(props.diceAmt,props.dice)
-        }
-        }else if(props.type === 'Dex Save') {
-            rollDamage(props.diceAmt, props.dice)
+        console.log('roll',result + props.mod);
+        setActionResult(result + props.mod)
+        rollDamage(props.diceAmt,props.dice)
         }
     return result;
     }
 
     return (
         <Div>
-            <h3>{props.name}</h3>
+            <h5>{props.name}</h5>
             <div className="dice-info">
-            <p>{props.type}</p>
+                <p>{props.type}</p>
                 <p>{props.diceAmt}</p>
                 <p>d{props.dice}</p>
                 <p>{props.damageType} </p>
-                {props.type === 'Melee' ? <p> + {props.player.strengthMod}</p> : <p> + {props.player.dexMod}</p> }
+                {props.mod > 0 ? <p> + {props.mod}</p> :'' }
                 {actionResult > 0 ? <p className='action-result'>{actionResult} to hit</p>: '' }
                 {actionDamage > 0 ? <p className='action-damage'>{actionDamage} damage</p>: '' } 
             </div>

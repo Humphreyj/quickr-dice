@@ -6,8 +6,7 @@ import styled from 'styled-components';
 const Div = styled.div`
 display: flex;
 flex-direction: column;
-width: 80%;
-margin: 0 auto;
+
 
 `
 
@@ -22,6 +21,7 @@ const PlayerActions = (props) => {
                     damageType={action.damageType}
                     diceAmt={action.diceAmt}
                     dice={action.dice}
+                    mod={action.mod}
                     player={props.player}
                     setPlayerStats={props.setPlayerStats}
                     result={action.result}
