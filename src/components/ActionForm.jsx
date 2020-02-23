@@ -41,6 +41,7 @@ const ActionForm = (props) => {
         damageType:'',
         diceAmt: 0,
         dice: 0,
+        mod: 0,
         damage: 0,
         
     })
@@ -61,7 +62,7 @@ const ActionForm = (props) => {
         name: '',
         type: '',
         damageType:'',
-        diceAmt: 1,
+        diceAmt: 0,
         dice: 0,
         mod: 0,
         damage: 0,
@@ -83,6 +84,7 @@ const ActionForm = (props) => {
                 name='type'
                 value={newAction.type}
                 onChange={changeHandler}>
+                    <option value='none'>Attack Type</option>
                     <option value='Cha Save'>Cha Save</option>
                     <option value='Con Save'>Con Save</option>
                     <option value='Dex Save'>Dex Save</option>
@@ -96,6 +98,7 @@ const ActionForm = (props) => {
                     name='damageType'
                     value={newAction.damageType}
                     onChange={changeHandler}>
+                    <option value='none'>Damage Type</option>   
                     <option value='Bludgeoning'>Bludgeoning</option>
                     <option value='Cold'>Cold</option>
                     <option value='Fire'>Fire</option>

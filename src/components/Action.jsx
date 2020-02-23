@@ -33,8 +33,11 @@ h5 {
 }
 
 button {
-    height: 2em;
+    font-size: 1.1em;
     width: 3.8em;
+    height: 1.5em;
+    text-align: center;
+    
 }
 `
 
@@ -55,10 +58,10 @@ const rollDamage = (amt,num) => {
     },0)
     if(props.type === 'Melee'){
         console.log('damage',damage);
-        setActionDamage(damage + props.mod)
+        setActionDamage(damage += parseInt(props.mod))
     }else if (props.type === 'Ranged'){
         console.log('damage',damage)
-        setActionDamage(damage + props.mod)
+        setActionDamage(damage += parseInt(props.mod))
     }else if(props.type=== 'Dex Save') {
         setActionDamage(damage)
     }
@@ -94,20 +97,41 @@ const rollCriticalDamage = (amt,num) => {
 }
 
 const rollDice = (num) => {
-    
-    let result = actionResult;
-    result = (Math.floor(Math.random() * num + 1));
+
+    if(props.type == 'Melee') {
+        let result = actionResult;
+        result = (Math.floor(Math.random() * num + 1));
         if(result === 20) {
             console.log('Critical!')
             props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
-            setActionResult(result + props.mod)
+            setActionResult(result += parseInt(props.mod))
             rollCriticalDamage(props.diceAmt ,props.dice)
         }else {
-        console.log('roll',result + props.mod);
-        setActionResult(result + props.mod)
+        console.log('roll',result + parseInt(props.mod));
+        setActionResult(result += parseInt(props.mod))
         rollDamage(props.diceAmt,props.dice)
+            // return result;
         }
-    return result;
+    
+    }else if(props.type == 'Ranged'){
+        let result = actionResult;
+        result = (Math.floor(Math.random() * num + 1));
+        if(result === 20) {
+            console.log('Critical!')
+            props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
+            setActionResult(result += parseInt(props.mod))
+            rollCriticalDamage(props.diceAmt ,props.dice)
+        }else {
+        console.log('roll',result + parseInt(props.mod));
+        setActionResult(result += parseInt(props.mod))
+        rollDamage(props.diceAmt,props.dice)
+            // return result;
+        }
+
+    }else {
+        setActionResult(0);
+        rollDamage(props.diceAmt,props.dice)
+    }
     }
 
     return (
@@ -122,7 +146,7 @@ const rollDice = (num) => {
                 {actionResult > 0 ? <p className='action-result'>{actionResult} to hit</p>: '' }
                 {actionDamage > 0 ? <p className='action-damage'>{actionDamage} damage</p>: '' } 
             </div>
-            <button onClick={()=>rollDice(20)}>Attack!</button> 
+            <button onClick={()=>rollDice(20)}>Attack</button> 
         </Div>
     );
 }
