@@ -10,7 +10,7 @@ background-color: #9999;
 justify-content: center;
 align-items: center;
 padding:  0 1%;
-margin: 1em auto;
+margin: .5em auto;
 box-shadow: 2px 2px 2px #444;
 font-family: 'Raleway', serif;
 border: 1px solid black;
@@ -20,6 +20,7 @@ border: 1px solid black;
     font-weight: bold;
     @media(min-width: 1000px) {
         font-size: 1.3em;
+        
     }
 }
 .dice-info {
@@ -87,6 +88,7 @@ border: 1px solid black;
     width: 75%;
     margin: 1em auto;
     flex-direction: row;
+    height: 5em;
 }
 
 `
