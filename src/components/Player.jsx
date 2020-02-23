@@ -3,10 +3,17 @@ import styled from 'styled-components';
 import PlayerActions from './PlayerActions'
 
 const Div = styled.div`
-
+.player-name {
+    font-family: 'Fjalla One', sans-serif ;
+    text-shadow: 2px 2px 2px #666;
+}
 .stats {
     display: flex;
     justify-content: space-evenly;
+    font-family: 'Roboto',serif ;
+    text-shadow: 2px 1px 1px #777;
+
+    
 }
 
 `
@@ -56,7 +63,7 @@ const Player = () => {
     })
     return (
         <Div>
-            <h1>{player.playerName}</h1>
+            <h1 className='player-name'>{player.playerName}</h1>
             <div className="stats">
                 <h3>High Damage: {player.highDamage}</h3>
                 <h3>Crit Fails: {player.critFails}</h3>
