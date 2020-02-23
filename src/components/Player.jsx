@@ -7,12 +7,14 @@ const Div = styled.div`
 .player-name {
     font-family: 'Fjalla One', sans-serif ;
     text-shadow: 2px 1px 1px #777;
+    font-size: 1.4em;
 }
 .stats {
     display: flex;
     justify-content: space-evenly;
     font-family: 'Roboto',serif ;
     text-shadow: 2px 1px 1px #777;
+    font-size: .7em;
 
     
 }

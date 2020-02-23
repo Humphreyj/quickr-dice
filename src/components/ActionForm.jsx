@@ -4,6 +4,8 @@ import styled from 'styled-components';
 const Div =  styled.div`
 font-family: 'Fjalla One', sans-serif ;
 form {
+    width: 60%;
+    margin: 0 auto;
     h4 {
         text-shadow: 2px 1px 1px #666;
     }
@@ -34,13 +36,7 @@ form {
         box-shadow: 2px 2px 2px #666;
     }
     
-    button {
-        height: 2.3em;
-        background-color: #111;
-        color: white;
-        font-size: 1.1em;
-        box-shadow: 2px 2px 2px #444;
-    }
+   
 }
 
 @media(min-width: 1000px) {
@@ -48,7 +44,7 @@ form {
     margin: 0 auto;
 }
 button {
-    width: 4em;
+    width: 3em;
     height: 2.3em;
     background-color: #111;
     color: white;
