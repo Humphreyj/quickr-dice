@@ -1,8 +1,10 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
+import { useSpring, animated } from 'react-spring';
 
 const Div = styled.div`
 display: flex;
+background-color: #9999;
 justify-content: center;
 align-items: center;
 padding:  0 2%;
@@ -23,6 +25,7 @@ border: 1px solid black;
     justify-content: center;
     align-items: center;
     font-size: .9em;
+    font-weight: bold;
     text-shadow: 1px 1px 1px #777;
 
         p {
@@ -34,6 +37,12 @@ border: 1px solid black;
         .damage-die {
             margin: 0;
         }
+        div {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            
+        }
         @media(min-width: 1000px) {
             font-size: 1.2em;
         }
@@ -41,7 +50,6 @@ border: 1px solid black;
 
 .action-result {
     margin-left: 3em;
-    font-weight: bold;
     font-size: .9em;
 }
 
@@ -50,8 +58,8 @@ border: 1px solid black;
     font-size: .9em;
 }
 
-button {
-    font-size: 1.1em;
+.atk {
+    font-size: 1em;
     width: 3.8em;
     height: 1.5em;
     text-align: center;
@@ -107,18 +115,20 @@ const rollDamage = (amt,num) => {
 const rollCriticalDamage = (amt,num) => {
     let criticalDamage = actionDamage;
     let result =[];
+    let critResult;
     for(let i=0;i<amt;i++){
     result.push(Math.floor(Math.random() * num + 1));
     }
     criticalDamage = result.reduce((accumulator, currentValue)=> {
         return accumulator + currentValue;
     },0)
+    critResult = criticalDamage * 2;
     if(props.type === 'Melee'){
         console.log('crit damage',criticalDamage);
-        setActionDamage((criticalDamage*2) + parseInt(props.mod))
+        setActionDamage(critResult += parseInt(props.mod))
     }else if (props.type === 'Ranged'){
         console.log('crit damage',criticalDamage)
-        setActionDamage((criticalDamage*2) + parseInt(props.mod))
+        setActionDamage(critResult += parseInt(props.mod))
     }
 
     if(actionDamage > props.player.highDamage) {
@@ -134,14 +144,11 @@ const rollDice = (num) => {
         result = (Math.floor(Math.random() * num + 1));
         if(result === 1) {
             props.setPlayerStats({...props.player,critFails: props.player.critFails +=1 })
-            alert('Natural One!')
         }
         if(result === 20) {
-            console.log('Critical!')
             props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
             setActionResult(result += parseInt(props.mod))
             rollCriticalDamage(props.diceAmt ,props.dice)
-            alert('Critical Hit!')
         }else {
         console.log('roll',result + parseInt(props.mod));
         setActionResult(result += parseInt(props.mod))
@@ -170,19 +177,37 @@ const rollDice = (num) => {
     }
     }
 
+
+    const resultFade = useSpring({
+        to: [{opacity: 0}, { opacity: 1}],
+        from: {opacity: 1},
+        config: {
+            duration: 300,
+        }
+         
+    })
+
+    const critAnimate = useSpring({
+        color: actionResult - parseInt(props.mod) === 20 ? 'green': "black",
+        textDecoration: actionResult - parseInt(props.mod) === 1 ? 'line-through': "none",
+        textDecorationColor: 'red'
+    })
     return (
         <Div>
-            <h5 className='action-name'>{props.name}</h5>
+            <h5  className='action-name'>{props.name}</h5>
             <div className="dice-info">
                 <p>{props.type}</p>
                 <p className='die-amt'>{props.diceAmt}</p>
                 <p className='damage-die'>d{props.dice}</p>
                 <p>{props.damageType} </p>
                 {props.mod > 0 ? <p> + {props.mod}</p> :'' }
-                {actionResult > 0 ? <p className='action-result'>{actionResult} to hit</p>: '' }
-                {actionDamage > 0 ? <p className='action-damage'>{actionDamage} DAM</p>: '' } 
+                <animated.div style={resultFade}>
+                    {actionResult > 0 ? <animated.p style={critAnimate} className='action-result'>{actionResult} to hit</animated.p>: '' }
+                    {actionDamage > 0 ? <animated.p style={critAnimate} className='action-damage'>{actionDamage} DAM</animated.p>: '' }
+                </animated.div>
+                 
             </div>
-            <button onClick={()=>rollDice(20)}>Attack</button> 
+            <button className='atk' onClick={()=>rollDice(20)}>Attack</button> 
         </Div>
     );
 }

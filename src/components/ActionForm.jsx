@@ -47,10 +47,16 @@ form {
     width: 40%;
     margin: 0 auto;
 }
-
-
+button {
+    width: 4em;
+    height: 2.3em;
+    background-color: #111;
+    color: white;
+    font-size: 1.1em;
+    box-shadow: 2px 2px 2px #444;
+    margin: 1em 0;
+}
 `
-
 const ActionForm = (props) => {
 
     const [newAction, setNewAction] = useState({
@@ -62,12 +68,14 @@ const ActionForm = (props) => {
         dice: 0,
         mod: 0,
         damage: 0,
-        
     })
 
     const changeHandler = e => {
         console.log(newAction)
         setNewAction({...newAction,[e.target.name] : e.target.value})
+    }
+    const cancelAdding = e => {
+        props.setAddingAction(false);
     }
 
     const submitHandler = e => {
@@ -86,20 +94,19 @@ const ActionForm = (props) => {
         mod: 0,
         damage: 0,
         });
+        props.setAddingAction(false);
         
     }
     return (
         <Div>
             <form onSubmit={submitHandler}>
-                <h4>Add a new Action</h4>
-
+                
                 <input type="text"
                 name='name'
                 value={newAction.name}
                 placeholder='Name of Action'
                 onChange={changeHandler}/>
 
-                
                 <select 
                 name='type'
                 value={newAction.type}
@@ -131,7 +138,6 @@ const ActionForm = (props) => {
 
                 <div className="dice-info">
                     
-                       
                         <select 
                             className='dice-select'
                             name='diceAmt'
@@ -155,7 +161,7 @@ const ActionForm = (props) => {
                             name='mod'
                             value={newAction.mod}
                             onChange={changeHandler}>
-                            <option value='none'>Modifier</option>
+                            <option value='none' selected>Modifier</option>
                             <option value={-3}>-3</option>
                             <option value={-2}>-2</option>
                             <option value={-1}>-1</option>
@@ -174,8 +180,7 @@ const ActionForm = (props) => {
                             <option value={12}>+12</option>
                             <option value={13}>+13</option>
                         </select>
-                    
-                    
+            
                         <select 
                             className='dice-select'
                             name='dice'
@@ -188,21 +193,12 @@ const ActionForm = (props) => {
                             <option value={10}>10</option>
                             <option value={12}>12</option>
                         </select>
-                        
-                    
-
-                    
-                    
-                    
                 </div>
-                
-
                 <button>Add</button>
-
-                
-
             </form>
-            
+            <button onClick={()=> {
+                cancelAdding();
+            }}>Cancel</button>   
         </Div>
     );
 }
