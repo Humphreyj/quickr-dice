@@ -19,6 +19,11 @@ form {
             align-items: center;
         }
     }
+
+    .type-form {
+        display: flex;
+        justify-content: space-evenly;
+    }
     
     select {
         height: 2.4em;
@@ -103,34 +108,36 @@ const ActionForm = (props) => {
                 placeholder='Name of Action'
                 onChange={changeHandler}/>
 
-                <select 
-                name='type'
-                value={newAction.type}
-                onChange={changeHandler}>
-                    <option value='none'>Attack Type</option>
-                    <option value='Cha Save'>Cha Save</option>
-                    <option value='Con Save'>Con Save</option>
-                    <option value='Dex Save'>Dex Save</option>
-                    <option value='Int Save'>Int Save</option>
-                    <option value='Melee'>Melee</option>
-                    <option value='Ranged'>Ranged</option>
-                    <option value='Wis Save'>Wis Save</option>
-                </select>
-
-                 <select 
-                    name='damageType'
-                    value={newAction.damageType}
+                <div className="type-form">
+                    <select 
+                    name='type'
+                    value={newAction.type}
                     onChange={changeHandler}>
-                    <option value='none'>Damage Type</option>   
-                    <option value='Bludgeoning'>Bludgeoning</option>
-                    <option value='Cold'>Cold</option>
-                    <option value='Fire'>Fire</option>
-                    <option value='Force'>Force</option>
-                    <option value='Lightning'>Lightning</option>
-                    <option value='Piercing'>Piercing</option>
-                    <option value='Slashing'>Slashing</option>
-                    <option value='Water'>Water</option>
-                </select>
+                        <option value='none'>Attack Type</option>
+                        <option value='Cha Save'>Cha Save</option>
+                        <option value='Con Save'>Con Save</option>
+                        <option value='Dex Save'>Dex Save</option>
+                        <option value='Int Save'>Int Save</option>
+                        <option value='Melee'>Melee</option>
+                        <option value='Ranged'>Ranged</option>
+                        <option value='Wis Save'>Wis Save</option>
+                    </select>
+
+                    <select 
+                        name='damageType'
+                        value={newAction.damageType}
+                        onChange={changeHandler}>
+                        <option value='none'>Damage Type</option>   
+                        <option value='Bludgeoning'>Bludgeoning</option>
+                        <option value='Cold'>Cold</option>
+                        <option value='Fire'>Fire</option>
+                        <option value='Force'>Force</option>
+                        <option value='Lightning'>Lightning</option>
+                        <option value='Piercing'>Piercing</option>
+                        <option value='Slashing'>Slashing</option>
+                        <option value='Water'>Water</option>
+                    </select>
+                </div>
 
                 <div className="dice-info">
                     

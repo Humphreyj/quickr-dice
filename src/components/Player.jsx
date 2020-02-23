@@ -13,8 +13,8 @@ const Div = styled.div`
     display: flex;
     justify-content: space-evenly;
     font-family: 'Roboto',serif ;
-    text-shadow: 2px 1px 1px #777;
-    font-size: .7em;
+    text-shadow: 1px 1px 1px #777;
+    font-size: .9em;
 
     
 }
