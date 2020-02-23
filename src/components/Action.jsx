@@ -4,11 +4,13 @@ import { useSpring, animated } from 'react-spring';
 
 const Div = styled.div`
 display: flex;
+width: 80%;
+flex-direction: column;
 background-color: #9999;
 justify-content: center;
 align-items: center;
 padding:  0 2%;
-margin: 1em 0;
+margin: 1em auto;
 box-shadow: 2px 2px 2px #444;
 font-family: 'Raleway', serif;
 border: 1px solid black;
@@ -76,6 +78,7 @@ border: 1px solid black;
 @media(min-width: 1000px) {
     width: 75%;
     margin: 1em auto;
+    flex-direction: row;
 }
 
 `
