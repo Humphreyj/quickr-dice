@@ -48,8 +48,8 @@ form {
     width: 40%;
     margin: 0 auto;
 }
-button {
-    width: 3em;
+.cancel {
+    width: 6em;
     height: 2.3em;
     background-color: #111;
     color: white;
@@ -164,7 +164,7 @@ const ActionForm = (props) => {
                             name='mod'
                             value={newAction.mod}
                             onChange={changeHandler}>
-                            <option value='none' selected>Modifier</option>
+                            <option defaultValue='none' >Modifier</option>
                             <option value={-3}>-3</option>
                             <option value={-2}>-2</option>
                             <option value={-1}>-1</option>
@@ -199,7 +199,7 @@ const ActionForm = (props) => {
                 </div>
                 <button>Add</button>
             </form>
-            <button onClick={()=> {
+            <button className='cancel' onClick={()=> {
                 cancelAdding();
             }}>Cancel</button>   
         </Div>
