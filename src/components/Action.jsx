@@ -187,7 +187,11 @@ const rollDice = (num) => {
     }else if(props.type == 'Ranged'){
         let result = actionResult;
         result = (Math.floor(Math.random() * num + 1));
-        if(result === 20) {
+        if(result === 1) {
+            props.setPlayerStats({...props.player,critFails: props.player.critFails +=1 })
+            criticalFail();
+            rollDamage(props.diceAmt,props.dice)
+        }else if(result === 20) {
             console.log('Critical!')
             props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
             setActionResult(result += parseInt(props.mod))
