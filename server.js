@@ -4,6 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 const server = express();
 
+
 const sessionConfig = {
     name: 'Dot',
     secret: 'Kleeg was here',
@@ -20,6 +21,8 @@ server.use(cors());
 server.use(helmet());
 server.use(express.json())
 server.use(session(sessionConfig));
+
+
 
 server.get('/', (req, res) =>{
     res.send('<h1>It appears to be working my guy</h1>')
