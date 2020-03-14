@@ -11,7 +11,7 @@ async function add(user) {
 
 function findById(id) {
     return db("users")
-            .select("id",'char_name', "race", "class", "str_mod")
+            .select("*")
             .where({id})
             .first()
 }
@@ -19,7 +19,7 @@ function findById(id) {
 function findUserActions(id) {
     return db("actions as a")
         .join("users as u", "u.id", "a.user_id")
-        .select("a.id","u.char_name", "a.action_name", "a.action_type", "a.user_id", "a.dmg_type", "a.dice_amt", "a.dice","a.to_hit_mod", "a.dmg_mod")
+        .select("a.id","a.action_name", "a.action_type", "a.dmg_type", "a.dice_amt", "a.dice","a.to_hit_mod", "a.dmg_mod", "a.user_id")
         .where("a.user_id", id)      
 }
 
