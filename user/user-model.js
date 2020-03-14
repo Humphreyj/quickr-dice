@@ -4,21 +4,28 @@ const bcrypt = require('bcryptjs');
 async function add(user) {
  //user bcrypt to hash the password with a time complexity of 14
  user.password = await bcrypt.hash(user.password, 14)
- const {id} = await db("users").insert(user)
+ const [id] = await db("users").insert(user)
 
  return findById(id)
 }
 
 function findById(id) {
     return db("users")
-            .select('char_name', "race", "class", "str_mod")
+            .select("id",'char_name', "race", "class", "str_mod")
             .where({id})
             .first()
 }
 
+function findUserActions(id) {
+    return db("actions as a")
+        .join("users as u", "u.id", "a.user_id")
+        .select("a.id","u.char_name", "a.action_name", "a.action_type", "a.user_id", "a.dmg_type", "a.dice_amt", "a.dice","a.to_hit_mod", "a.dmg_mod")
+        .where("a.user_id", id)      
+}
+
 function find() {
     return db("users")
-    .select('char_name', "race", "class", "str_mod")
+    .select("id", 'char_name', "race", "class", "str_mod")
 }
 
 function findBy(filter) {
@@ -29,7 +36,8 @@ function findBy(filter) {
 
 module.exports = {
     add,
-    findById,
     find,
-    findBy
+    findBy,
+    findById,
+    findUserActions
 }

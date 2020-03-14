@@ -12,4 +12,36 @@ router.get('/',restrict(), async(req, res, next) => {
     }
 })
 
+router.get('/:id', async(req, res, next) => {
+    const {id} = req.params;
+    const idExists = await Users.findBy({id}).first()
+    try {
+        if(idExists) {
+            res.status(200).json(await Users.findById(id))
+        }else {
+            res.status(404).json({message: "User not found."})
+        }
+        
+
+    }catch(err) {
+        next();
+    }
+})
+
+router.get('/:id/actions', async(req, res, next) => {
+    const {id} = req.params;
+    const idExists = await Users.findBy({id}).first()
+    try {
+        if(idExists) {
+            res.status(200).json(await Users.findUserActions(id))
+        }else {
+            res.status(404).json({message: "User not found."})
+        }
+        
+
+    }catch(err) {
+        next();
+    }
+})
+
 module.exports = router;
