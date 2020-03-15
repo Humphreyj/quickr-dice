@@ -82,6 +82,7 @@ const Player = () => {
         .catch(err => {
             console.log(err)
         })
+        window.location.reload();
     }
 
     const green = useSpring({
