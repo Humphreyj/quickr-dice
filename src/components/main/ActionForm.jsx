@@ -1,5 +1,6 @@
 import React,{ useState } from 'react';
 import styled from 'styled-components';
+import { axiosWithAuth } from '../clientAuth/auth';
 
 const Div =  styled.div`
 font-family: 'Fjalla One', sans-serif ;
@@ -59,9 +60,9 @@ form {
 }
 `
 const ActionForm = (props) => {
+    const id = localStorage.getItem('user_id')
 
     const [newAction, setNewAction] = useState({
-        id: props.actions.length +1,
         name: '',
         type: '',
         damageType:'',
@@ -69,6 +70,7 @@ const ActionForm = (props) => {
         dice: 0,
         mod: 0,
         damage: 0,
+        user_id: id
     })
 
     const changeHandler = e => {
@@ -81,8 +83,17 @@ const ActionForm = (props) => {
 
     const submitHandler = e => {
         e.preventDefault();
+        axiosWithAuth().post(`http://localhost:3030/api/users/${id}/actions`, newAction)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
         let updatedActions = [...props.actions, newAction]
-        props.setPlayerStats({...props.player,actions: updatedActions})
+        props.setActions(updatedActions)
+
+       
         
         console.log(props.actions);
         setNewAction({

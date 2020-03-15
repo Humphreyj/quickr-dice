@@ -17,15 +17,17 @@ function findById(id) {
 }
 
 function findUserActions(id) {
+        
     return db("actions as a")
         .join("users as u", "u.id", "a.user_id")
         .select("a.id","a.action_name", "a.action_type", "a.dmg_type", "a.dice_amt", "a.dice","a.to_hit_mod", "a.dmg_mod", "a.user_id")
-        .where("a.user_id", id)      
+        .where("a.user_id", id)
+           
 }
 
-function addAction(action, user_id) {
+async function addAction(action, user_id) {
     const newAction = {...action, user_id}
-    return db('actions')
+    return await db('actions')
         .insert(newAction)
 }
 

@@ -45,6 +45,8 @@ const Player = () => {
         ]
     })
 
+    
+
     useEffect(() => {
         const id = localStorage.getItem('user_id')
         axiosWithAuth()
@@ -52,10 +54,12 @@ const Player = () => {
             .then(res => {
                 console.log(res)
                 setPlayerStats({...player,playerName: res.data.char_name})
+                
             })
             .catch(err => {
                 console.log(err)
             })
+           
     },[])
     const [editing, setEditing] = useState(false);
 
