@@ -46,7 +46,7 @@ const PlayerActions = (props) => {
     }, [])
     return (
         <Div>
-            {actions ? actions.map(action => {
+            { actions && actions.length > 0 ? actions.map(action => {
                 return(
                     <Action
                     name={action.action_name}

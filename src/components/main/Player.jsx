@@ -20,6 +20,12 @@ const Div = styled.div`
     
 }
 
+.logout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 `
 
 const Player = () => {
@@ -67,6 +73,17 @@ const Player = () => {
         setPlayerStats({...player,[e.target.name]: e.target.value})
     }
 
+    const handleLogout = (e) => {
+        localStorage.clear()
+        axiosWithAuth().get('http://localhost:3030/api/auth/logout')
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     const green = useSpring({
         to: [{color: 'green'}, { color: 'black'}],
         from: {color: 'black'},
@@ -105,6 +122,10 @@ const Player = () => {
             player={player}
             setPlayerStats={setPlayerStats}
             actions={player.actions} />
+
+            <div className="logout-button">
+                <button onClick={handleLogout}>Logout</button>
+            </div>
         
 
         </Div>

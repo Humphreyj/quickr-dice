@@ -214,7 +214,7 @@ const rollDice = (num) => {
         to: [{opacity: 0}, { opacity: 1}],
         from: {opacity: 1},
         config: {
-            duration: 300,
+            duration: 200,
         }
          
     })

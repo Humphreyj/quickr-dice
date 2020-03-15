@@ -63,14 +63,14 @@ const ActionForm = (props) => {
     const id = localStorage.getItem('user_id')
 
     const [newAction, setNewAction] = useState({
-        name: '',
-        type: '',
-        damageType:'',
-        diceAmt: 0,
+        action_name: '',
+        action_type: '',
+        dmg_type:'',
+        dice_amt: 0,
         dice: 0,
-        mod: 0,
-        damage: 0,
-        user_id: id
+        to_hit_mod: 0,
+        dmg_mod: 0,
+    
     })
 
     const changeHandler = e => {
@@ -97,7 +97,6 @@ const ActionForm = (props) => {
         
         console.log(props.actions);
         setNewAction({
-        id:  0,
         name: '',
         type: '',
         damageType:'',
@@ -114,15 +113,15 @@ const ActionForm = (props) => {
             <form onSubmit={submitHandler}>
                 
                 <input type="text"
-                name='name'
-                value={newAction.name}
+                name='action_name'
+                value={newAction.action_name}
                 placeholder='Name of Action'
                 onChange={changeHandler}/>
 
                 <div className="type-form">
                     <select 
-                    name='type'
-                    value={newAction.type}
+                    name='action_type'
+                    value={newAction.action_type}
                     onChange={changeHandler}>
                         <option value='none'>Attack Type</option>
                         <option value='Cha Save'>Cha Save</option>
@@ -135,8 +134,8 @@ const ActionForm = (props) => {
                     </select>
 
                     <select 
-                        name='damageType'
-                        value={newAction.damageType}
+                        name='dmg_type'
+                        value={newAction.dmg_type}
                         onChange={changeHandler}>
                         <option value='none'>Damage Type</option>   
                         <option value='Bludgeoning'>Bludgeoning</option>
@@ -154,8 +153,8 @@ const ActionForm = (props) => {
                     
                         <select 
                             className='dice-select'
-                            name='diceAmt'
-                            value={newAction.diceAmt}
+                            name='dice_amt'
+                            value={newAction.dice_amt}
                             onChange={changeHandler}>
                             <option value='none'>How many dice?</option>
                             <option value={1}>1</option>
@@ -172,10 +171,35 @@ const ActionForm = (props) => {
 
                         <select 
                             className='mod'
-                            name='mod'
-                            value={newAction.mod}
+                            name='to_hit_mod'
+                            value={newAction.to_hit_mod}
                             onChange={changeHandler}>
-                            <option defaultValue='none' >Modifier</option>
+                            <option value='none' >To Hit Modifier</option>
+                            <option value={-3}>-3</option>
+                            <option value={-2}>-2</option>
+                            <option value={-1}>-1</option>
+                            <option value={0}>0</option>
+                            <option value={1}>+1</option>
+                            <option value={2}>+2</option>
+                            <option value={3}>+3</option>
+                            <option value={4}>+4</option>
+                            <option value={5}>+5</option>
+                            <option value={6}>+6</option>
+                            <option value={7}>+7</option>
+                            <option value={8}>+8</option>
+                            <option value={9}>+9</option>
+                            <option value={10}>+10</option>
+                            <option value={11}>+11</option>
+                            <option value={12}>+12</option>
+                            <option value={13}>+13</option>
+                        </select>
+
+                        <select 
+                            className='mod'
+                            name='dmg_mod'
+                            value={newAction.dmg_mod}
+                            onChange={changeHandler}>
+                            <option value='none' >Damage</option>
                             <option value={-3}>-3</option>
                             <option value={-2}>-2</option>
                             <option value={-1}>-1</option>
