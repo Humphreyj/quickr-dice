@@ -34,7 +34,7 @@ router.post('/login', async(req, res, next) => {
         }
         req.session.user = user;
         const token = generateToken(user)
-        res.status(200).json({message: `Welcome ${user.username}`, token})
+        res.status(200).json({id: user.id, token})
     }catch(err) {
         next(err);
     }
@@ -45,7 +45,8 @@ router.post('/login', async(req, res, next) => {
 function generateToken(user) {
     const payload = {
         subject: user.id,
-        username: user.username
+        username: user.username,
+        character: user.char_name
     }
     const options = {
         expiresIn: '1h'//This sweet little option come from the jwt library.

@@ -16,7 +16,7 @@ function App() {
       <Route path = '/' exact component={Splash}/>
       <Route path='/login' component={Login} />
       <Route path ='/register' component={Register} />
-      <Route path = '/player' component ={Player} />
+      <Route path = '/player/:id' component ={Player} />
       <Footer />
     </div>
   );

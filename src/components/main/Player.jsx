@@ -1,6 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
-import PlayerActions from './PlayerActions'
+import PlayerActions from './PlayerActions';
+import {axiosWithAuth} from '../clientAuth/auth'
 import { useSpring, animated } from 'react-spring';
 
 const Div = styled.div`
@@ -40,30 +41,22 @@ const Player = () => {
                 result: 0,
                 damage: 0,
             },
-            {
-                id: 1,
-                name: 'Shortsword',
-                type: 'Melee',
-                damageType: 'Slashing',
-                diceAmt: 1,
-                dice: 6,
-                mod: 3,
-                result: 0,
-                damage: 0,
-            },
-            {
-                id:2,
-                name: 'ShortBow',
-                type: 'Ranged',
-                damageType: 'Piercing',
-                diceAmt: 1,
-                dice: 6,
-                mod: 4,
-                result: 0,
-                damage: 0,
-            }
+           
         ]
     })
+
+    useEffect(() => {
+        const id = localStorage.getItem('user_id')
+        axiosWithAuth()
+            .get(`http://localhost:3030/api/users/${id}`)
+            .then(res => {
+                console.log(res)
+                setPlayerStats({...player,playerName: res.data.char_name})
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },[])
     const [editing, setEditing] = useState(false);
 
     const changeHandler = e => {

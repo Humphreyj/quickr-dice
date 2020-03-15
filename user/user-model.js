@@ -23,6 +23,12 @@ function findUserActions(id) {
         .where("a.user_id", id)      
 }
 
+function addAction(action, user_id) {
+    const newAction = {...action, user_id}
+    return db('actions')
+        .insert(newAction)
+}
+
 function find() {
     return db("users")
     .select("id", 'char_name', "race", "class", "str_mod")
@@ -30,7 +36,7 @@ function find() {
 
 function findBy(filter) {
     return db("users")
-        .select("id", "username", "password")
+        .select("id", "username", "password", "char_name")
         .where(filter)
 }
 
@@ -39,5 +45,6 @@ module.exports = {
     find,
     findBy,
     findById,
-    findUserActions
+    findUserActions,
+    addAction
 }

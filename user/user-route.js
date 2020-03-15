@@ -44,4 +44,14 @@ router.get('/:id/actions', async(req, res, next) => {
     }
 })
 
+router.post('/:id/actions', async(req, res, next) => {
+    const newAction = req.body;
+    const id = req.params.id;
+    try {
+        res.status(201).json(await Users.addAction(newAction, id))
+    }catch(err) {
+        next();
+    }
+})
+
 module.exports = router;
