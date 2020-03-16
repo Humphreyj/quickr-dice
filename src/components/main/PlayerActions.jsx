@@ -54,7 +54,8 @@ const PlayerActions = (props) => {
                     damageType={action.dmg_type}
                     diceAmt={action.dice_amt}
                     dice={action.dice}
-                    mod={action.dmg_mod}
+                    toHit={action.to_hit_mod}
+                    dmg_mod={action.dmg_mod}
                     player={props.player}
                     setPlayerStats={props.setPlayerStats}
                     result={action.result}
