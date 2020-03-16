@@ -5,8 +5,12 @@ import { axiosWithAuth } from '../clientAuth/auth';
 const Div =  styled.div`
 font-family: 'Fjalla One', sans-serif ;
 form {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     h4 {
         text-shadow: 2px 1px 1px #666;
     }
@@ -19,11 +23,16 @@ form {
             justify-content: center;
             align-items: center;
         }
-    }
+
+        
 
     .type-form {
         display: flex;
         justify-content: space-evenly;
+    }
+
+    
+    
     }
     
     select {
@@ -57,6 +66,23 @@ form {
     font-size: 1.1em;
     box-shadow: 2px 2px 2px #444;
     margin: 1em 0;
+}
+
+
+.modifiers {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    
+
+    .mod {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items:center;
+        width: 30%;
+       
+    }
 }
 `
 const ActionForm = (props) => {
@@ -119,6 +145,7 @@ const ActionForm = (props) => {
                 onChange={changeHandler}/>
 
                 <div className="type-form">
+
                     <select 
                     name='action_type'
                     value={newAction.action_type}
@@ -149,6 +176,63 @@ const ActionForm = (props) => {
                     </select>
                 </div>
 
+                <div className="modifiers">
+                            <div className="mod">
+                                <p className="mod-title">To Hit Modifier</p>
+                                <select 
+                                className='mod-select'
+                                name='to_hit_mod'
+                                value={newAction.to_hit_mod}
+                                onChange={changeHandler}>
+                                    <option value={-3}>-3</option>
+                                    <option value={-2}>-2</option>
+                                    <option value={-1}>-1</option>
+                                    <option value={0}>0</option>
+                                    <option value={1}>+1</option>
+                                    <option value={2}>+2</option>
+                                    <option value={3}>+3</option>
+                                    <option value={4}>+4</option>
+                                    <option value={5}>+5</option>
+                                    <option value={6}>+6</option>
+                                    <option value={7}>+7</option>
+                                    <option value={8}>+8</option>
+                                    <option value={9}>+9</option>
+                                    <option value={10}>+10</option>
+                                    <option value={11}>+11</option>
+                                    <option value={12}>+12</option>
+                                    <option value={13}>+13</option>
+                            </select>
+                            </div>
+                            <div className="mod">
+
+                            <p className="mod-title">Damage Modfifer</p>
+                            <select 
+                            className='mod-select'
+                            name='dmg_mod'
+                            value={newAction.dmg_mod}
+                            onChange={changeHandler}>
+                            <option value={-3}>-3</option>
+                            <option value={-2}>-2</option>
+                            <option value={-1}>-1</option>
+                            <option value={0}>0</option>
+                            <option value={1}>+1</option>
+                            <option value={2}>+2</option>
+                            <option value={3}>+3</option>
+                            <option value={4}>+4</option>
+                            <option value={5}>+5</option>
+                            <option value={6}>+6</option>
+                            <option value={7}>+7</option>
+                            <option value={8}>+8</option>
+                            <option value={9}>+9</option>
+                            <option value={10}>+10</option>
+                            <option value={11}>+11</option>
+                            <option value={12}>+12</option>
+                            <option value={13}>+13</option>
+                            </select>
+
+                            </div>
+                        </div>
+
                 <div className="dice-info">
                     
                         <select 
@@ -168,57 +252,7 @@ const ActionForm = (props) => {
                             <option value={9}>9</option>
                             <option value={10}>10</option>
                         </select>
-
-                        <select 
-                            className='mod'
-                            name='to_hit_mod'
-                            value={newAction.to_hit_mod}
-                            onChange={changeHandler}>
-                            <option value='none' >To Hit Modifier</option>
-                            <option value={-3}>-3</option>
-                            <option value={-2}>-2</option>
-                            <option value={-1}>-1</option>
-                            <option value={0}>0</option>
-                            <option value={1}>+1</option>
-                            <option value={2}>+2</option>
-                            <option value={3}>+3</option>
-                            <option value={4}>+4</option>
-                            <option value={5}>+5</option>
-                            <option value={6}>+6</option>
-                            <option value={7}>+7</option>
-                            <option value={8}>+8</option>
-                            <option value={9}>+9</option>
-                            <option value={10}>+10</option>
-                            <option value={11}>+11</option>
-                            <option value={12}>+12</option>
-                            <option value={13}>+13</option>
-                        </select>
-
-                        <select 
-                            className='mod'
-                            name='dmg_mod'
-                            value={newAction.dmg_mod}
-                            onChange={changeHandler}>
-                            <option value='none' >Damage</option>
-                            <option value={-3}>-3</option>
-                            <option value={-2}>-2</option>
-                            <option value={-1}>-1</option>
-                            <option value={0}>0</option>
-                            <option value={1}>+1</option>
-                            <option value={2}>+2</option>
-                            <option value={3}>+3</option>
-                            <option value={4}>+4</option>
-                            <option value={5}>+5</option>
-                            <option value={6}>+6</option>
-                            <option value={7}>+7</option>
-                            <option value={8}>+8</option>
-                            <option value={9}>+9</option>
-                            <option value={10}>+10</option>
-                            <option value={11}>+11</option>
-                            <option value={12}>+12</option>
-                            <option value={13}>+13</option>
-                        </select>
-            
+                
                         <select 
                             className='dice-select'
                             name='dice'
