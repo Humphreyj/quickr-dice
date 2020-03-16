@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import { useSpring, animated } from 'react-spring';
+import { axiosWithAuth } from '../clientAuth/auth';
 
 const Div = styled.div`
 display: flex;
@@ -14,15 +15,22 @@ margin: .5em auto;
 box-shadow: 2px 2px 2px #444;
 font-family: 'Raleway', serif;
 border: 1px solid black;
-.action-name {
-    font-size: 1.7em;
-    text-shadow: 1px 1px 1px #777;
-    font-weight: bold;
-    @media(min-width: 1000px) {
-        font-size: 1.3em;
-        
+
+
+    .action-name {
+        font-size: 1.7em;
+        text-shadow: 1px 1px 1px #777;
+        font-weight: bold;
+        @media(min-width: 1000px) {
+            font-size: 1.3em;
+            
+        }
     }
-}
+    
+   
+
+
+
 .dice-info {
     width: 100%;
     display: flex;
@@ -76,20 +84,43 @@ border: 1px solid black;
     font-size: 1.2em;
 }
 
-.atk {
-    font-size: 1.2em;
-    width: 3.8em;
-    height: 1.8em;
-    text-align: center;
-    background-color: #111;
-    color: white;
-    transition: all 0.1s ease;
-    
-    &:active {
-        background-color: #888;
-        color: #111;;
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    button {
+        font-size: 1.2em;
+        width: 3.8em;
+        height: 1.8em;
+        text-align: center;
+        background-color: #111;
+        color: white;
+        transition: all 0.1s ease;
+      
+        
+        &:active {
+            background-color: #888;
+            color: #111;;
+        }
+    }
+
+    .delete {
+        background-color: red;
+    }
+
+    @media(min-width: 1000px) {
+        flex-direction: row;
+        justify-content: space-evenly;
+        button {
+            height: 1.3em;
+            width:  3em;
+            margin: 0 .5em;
+        }
+        
     }
 }
+
+
 
 @media(min-width: 1000px) {
     width: 75%;
@@ -116,6 +147,8 @@ const criticalHit = () => {
 const criticalFail = () => {
     setCriticals({...criticals,fail: true});         
 }
+
+
 
 const rollDamage = (amt,num) => {
     let damage = actionDamage;
@@ -231,12 +264,17 @@ const rollDice = (num) => {
         textDecoration: criticals.fail ? 'line-through': "none",
         textDecorationColor: 'red'
     })
+
+    
     return (
         <Div>
-            <h5  className='action-name'>{props.name}</h5>
+            <div className="name">
+                <h5  className='action-name'>{props.name}</h5>
+            </div>
+            
             
             <div className="dice-info">
-                <p className="to-hit">+{props.toHit} to hit</p>
+                {props.toHit > 0 ? <p className="to-hit">+{props.toHit} to hit</p>  : ''}
                 <p className="type">{props.type}</p>
                 <div className='die'>
                     <p className='die-amt'>{props.diceAmt}</p>
@@ -251,7 +289,12 @@ const rollDice = (num) => {
                     {actionDamage > 0 ? <animated.p style={critAnimate} className='action-damage'>{actionDamage} DAM</animated.p>: '' }
                 </animated.div>  
             </div>
-            <button className='atk' onClick={()=>rollDice(20)}><i className="fas fa-dice-d20"></i></button> 
+            <div className="action-buttons">
+                <button className='atk' onClick={()=>rollDice(20)}><i className="fas fa-dice-d20"></i></button> 
+
+                <button className = "delete" onClick={() =>props.deleteAction(props.id)}><i className="fas fa-trash"></i></button>
+            </div>
+            
         </Div>
     );
 }

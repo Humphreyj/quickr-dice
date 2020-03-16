@@ -164,14 +164,17 @@ const ActionForm = (props) => {
                         name='dmg_type'
                         value={newAction.dmg_type}
                         onChange={changeHandler}>
-                        <option value='none'>Damage Type</option>   
+                        <option value='none'>Damage Type</option>
+                        <option value='Acid'>Acid</option>/   
                         <option value='Bludgeoning'>Bludgeoning</option>
                         <option value='Cold'>Cold</option>
                         <option value='Fire'>Fire</option>
                         <option value='Force'>Force</option>
                         <option value='Lightning'>Lightning</option>
                         <option value='Piercing'>Piercing</option>
+                        <option value='Radiant'>Radiant</option>
                         <option value='Slashing'>Slashing</option>
+                        <option value='Thunder'>Thunder</option>
                         <option value='Water'>Water</option>
                     </select>
                 </div>

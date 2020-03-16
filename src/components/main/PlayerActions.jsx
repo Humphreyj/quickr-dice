@@ -44,11 +44,24 @@ const PlayerActions = (props) => {
                 })
         
     }, [])
+
+    const deleteAction = (id) => {
+        axiosWithAuth().delete(`https://quick-dice.herokuapp.com/api/actions/${id}`)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        setActions({...actions.filter(item => item.id !== id)})
+        
+    }
     return (
         <Div>
             { actions && actions.length > 0 ? actions.map(action => {
                 return(
                     <Action
+                    id={action.id}
                     name={action.action_name}
                     type={action.action_type}
                     damageType={action.dmg_type}
@@ -60,6 +73,7 @@ const PlayerActions = (props) => {
                     setPlayerStats={props.setPlayerStats}
                     result={action.result}
                     damage={action.damage}
+                    deleteAction={deleteAction}
                      />
                 )
             }) : <h5>You have no actions!</h5> }
