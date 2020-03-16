@@ -51,7 +51,7 @@ background-color: #111;
         p {
             font-size: 1.3em;
             font-family: 'Raleway', serif;
-            margin: 2em 0;
+            margin: 1.6em 0;
         }
     }
 }
