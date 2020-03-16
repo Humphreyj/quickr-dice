@@ -1,6 +1,7 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import Action from './Action';
 import ActionForm from './ActionForm';
+import { axiosWithAuth } from '../clientAuth/auth';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -28,34 +29,50 @@ button {
 const PlayerActions = (props) => {
 
     const [addingAction, setAddingAction] = useState(false)
+    const [actions, setActions] = useState()
+    useEffect(() => {
+        
+            const id = localStorage.getItem('user_id')
+            axiosWithAuth()
+                .get(`https://quick-dice.herokuapp.com/api/users/${id}/actions`)
+                .then(res => {
+                    console.log(res)
+                    setActions(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        
+    }, [])
     return (
         <Div>
-            {props.actions.map(action => {
+            { actions && actions.length > 0 ? actions.map(action => {
                 return(
                     <Action
-                    name={action.name}
-                    type={action.type}
-                    damageType={action.damageType}
-                    diceAmt={action.diceAmt}
+                    name={action.action_name}
+                    type={action.action_type}
+                    damageType={action.dmg_type}
+                    diceAmt={action.dice_amt}
                     dice={action.dice}
-                    mod={action.mod}
+                    toHit={action.to_hit_mod}
+                    dmg_mod={action.dmg_mod}
                     player={props.player}
                     setPlayerStats={props.setPlayerStats}
                     result={action.result}
                     damage={action.damage}
                      />
                 )
-            })}
+            }) : <h5>You have no actions!</h5> }
             
             <button onClick={()=> {
                 setAddingAction(true);
             }}>Add a new Action</button>   
             {addingAction ?  <ActionForm
-            actions={props.actions}
+            actions={actions}
             addingAction={addingAction}
             setAddingAction={setAddingAction}
             player={props.player}
-            setPlayerStats={props.setPlayerStats} /> : null}
+            setActions={setActions} /> : null}
             
         </Div>
     );

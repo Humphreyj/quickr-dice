@@ -1,11 +1,16 @@
 import React,{ useState } from 'react';
 import styled from 'styled-components';
+import { axiosWithAuth } from '../clientAuth/auth';
 
 const Div =  styled.div`
 font-family: 'Fjalla One', sans-serif ;
 form {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     h4 {
         text-shadow: 2px 1px 1px #666;
     }
@@ -18,11 +23,16 @@ form {
             justify-content: center;
             align-items: center;
         }
-    }
+
+        
 
     .type-form {
         display: flex;
         justify-content: space-evenly;
+    }
+
+    
+    
     }
     
     select {
@@ -57,18 +67,36 @@ form {
     box-shadow: 2px 2px 2px #444;
     margin: 1em 0;
 }
+
+
+.modifiers {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    
+
+    .mod {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items:center;
+        width: 30%;
+       
+    }
+}
 `
 const ActionForm = (props) => {
+    const id = localStorage.getItem('user_id')
 
     const [newAction, setNewAction] = useState({
-        id: props.actions.length +1,
-        name: '',
-        type: '',
-        damageType:'',
-        diceAmt: 0,
+        action_name: '',
+        action_type: '',
+        dmg_type:'',
+        dice_amt: 0,
         dice: 0,
-        mod: 0,
-        damage: 0,
+        to_hit_mod: 0,
+        dmg_mod: 0,
+    
     })
 
     const changeHandler = e => {
@@ -81,12 +109,20 @@ const ActionForm = (props) => {
 
     const submitHandler = e => {
         e.preventDefault();
+        axiosWithAuth().post(`https://quick-dice.herokuapp.com/api/users/${id}/actions`, newAction)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
         let updatedActions = [...props.actions, newAction]
-        props.setPlayerStats({...props.player,actions: updatedActions})
+        props.setActions(updatedActions)
+
+       
         
         console.log(props.actions);
         setNewAction({
-        id:  0,
         name: '',
         type: '',
         damageType:'',
@@ -103,15 +139,16 @@ const ActionForm = (props) => {
             <form onSubmit={submitHandler}>
                 
                 <input type="text"
-                name='name'
-                value={newAction.name}
+                name='action_name'
+                value={newAction.action_name}
                 placeholder='Name of Action'
                 onChange={changeHandler}/>
 
                 <div className="type-form">
+
                     <select 
-                    name='type'
-                    value={newAction.type}
+                    name='action_type'
+                    value={newAction.action_type}
                     onChange={changeHandler}>
                         <option value='none'>Attack Type</option>
                         <option value='Cha Save'>Cha Save</option>
@@ -124,8 +161,8 @@ const ActionForm = (props) => {
                     </select>
 
                     <select 
-                        name='damageType'
-                        value={newAction.damageType}
+                        name='dmg_type'
+                        value={newAction.dmg_type}
                         onChange={changeHandler}>
                         <option value='none'>Damage Type</option>   
                         <option value='Bludgeoning'>Bludgeoning</option>
@@ -139,32 +176,41 @@ const ActionForm = (props) => {
                     </select>
                 </div>
 
-                <div className="dice-info">
-                    
-                        <select 
-                            className='dice-select'
-                            name='diceAmt'
-                            value={newAction.diceAmt}
-                            onChange={changeHandler}>
-                            <option value='none'>How many dice?</option>
-                            <option value={1}>1</option>
-                            <option value={2}>2</option>
-                            <option value={3}>3</option>
-                            <option value={4}>4</option>
-                            <option value={5}>5</option>
-                            <option value={6}>6</option>
-                            <option value={7}>7</option>
-                            <option value={8}>8</option>
-                            <option value={9}>9</option>
-                            <option value={10}>10</option>
-                        </select>
+                <div className="modifiers">
+                            <div className="mod">
+                                <p className="mod-title">To Hit Modifier</p>
+                                <select 
+                                className='mod-select'
+                                name='to_hit_mod'
+                                value={newAction.to_hit_mod}
+                                onChange={changeHandler}>
+                                    <option value={-3}>-3</option>
+                                    <option value={-2}>-2</option>
+                                    <option value={-1}>-1</option>
+                                    <option value={0}>0</option>
+                                    <option value={1}>+1</option>
+                                    <option value={2}>+2</option>
+                                    <option value={3}>+3</option>
+                                    <option value={4}>+4</option>
+                                    <option value={5}>+5</option>
+                                    <option value={6}>+6</option>
+                                    <option value={7}>+7</option>
+                                    <option value={8}>+8</option>
+                                    <option value={9}>+9</option>
+                                    <option value={10}>+10</option>
+                                    <option value={11}>+11</option>
+                                    <option value={12}>+12</option>
+                                    <option value={13}>+13</option>
+                            </select>
+                            </div>
+                            <div className="mod">
 
-                        <select 
-                            className='mod'
-                            name='mod'
-                            value={newAction.mod}
+                            <p className="mod-title">Damage Modfifer</p>
+                            <select 
+                            className='mod-select'
+                            name='dmg_mod'
+                            value={newAction.dmg_mod}
                             onChange={changeHandler}>
-                            <option defaultValue='none' >Modifier</option>
                             <option value={-3}>-3</option>
                             <option value={-2}>-2</option>
                             <option value={-1}>-1</option>
@@ -182,8 +228,31 @@ const ActionForm = (props) => {
                             <option value={11}>+11</option>
                             <option value={12}>+12</option>
                             <option value={13}>+13</option>
+                            </select>
+
+                            </div>
+                        </div>
+
+                <div className="dice-info">
+                    
+                        <select 
+                            className='dice-select'
+                            name='dice_amt'
+                            value={newAction.dice_amt}
+                            onChange={changeHandler}>
+                            <option value='none'>How many dice?</option>
+                            <option value={1}>1</option>
+                            <option value={2}>2</option>
+                            <option value={3}>3</option>
+                            <option value={4}>4</option>
+                            <option value={5}>5</option>
+                            <option value={6}>6</option>
+                            <option value={7}>7</option>
+                            <option value={8}>8</option>
+                            <option value={9}>9</option>
+                            <option value={10}>10</option>
                         </select>
-            
+                
                         <select 
                             className='dice-select'
                             name='dice'

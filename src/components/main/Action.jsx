@@ -121,10 +121,10 @@ const rollDamage = (amt,num) => {
     },0)
     if(props.type === 'Melee'){
         console.log('damage',damage);
-        setActionDamage(damage += parseInt(props.mod))
+        setActionDamage(damage += parseInt(props.dmg_mod))
     }else if (props.type === 'Ranged'){
         console.log('damage',damage)
-        setActionDamage(damage += parseInt(props.mod))
+        setActionDamage(damage += parseInt(props.dmg_mod))
     }else if(props.type=== 'Dex Save') {
         setActionDamage(damage)
     }
@@ -149,10 +149,10 @@ const rollCriticalDamage = (amt,num) => {
     critResult = criticalDamage * 2;
     if(props.type === 'Melee'){
         console.log('crit damage',criticalDamage);
-        setActionDamage(critResult += parseInt(props.mod))
+        setActionDamage(critResult += parseInt(props.dmg_mod))
     }else if (props.type === 'Ranged'){
         console.log('crit damage',criticalDamage)
-        setActionDamage(critResult += parseInt(props.mod))
+        setActionDamage(critResult += parseInt(props.dmg_mod))
     }
 
     if(actionDamage > props.player.highDamage) {
@@ -174,12 +174,12 @@ const rollDice = (num) => {
             rollDamage(props.diceAmt,props.dice)
         }else if(result === 20) {
             props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
-            setActionResult(result += parseInt(props.mod))
+            setActionResult(result += parseInt(props.toHit))
             criticalHit();
             rollCriticalDamage(props.diceAmt ,props.dice)
         }else {
-        console.log('roll',result + parseInt(props.mod));
-        setActionResult(result += parseInt(props.mod))
+        console.log('roll',result + parseInt(props.toHit));
+        setActionResult(result += parseInt(props.toHit))
         rollDamage(props.diceAmt,props.dice)
             // return result;
         }
@@ -187,14 +187,18 @@ const rollDice = (num) => {
     }else if(props.type == 'Ranged'){
         let result = actionResult;
         result = (Math.floor(Math.random() * num + 1));
-        if(result === 20) {
+        if(result === 1) {
+            props.setPlayerStats({...props.player,critFails: props.player.critFails +=1 })
+            criticalFail();
+            rollDamage(props.diceAmt,props.dice)
+        }else if(result === 20) {
             console.log('Critical!')
             props.setPlayerStats({...props.player,criticalHits: props.player.criticalHits +=1 })
-            setActionResult(result += parseInt(props.mod))
+            setActionResult(result += parseInt(props.toHit))
             rollCriticalDamage(props.diceAmt ,props.dice)
         }else {
-        console.log('roll',result + parseInt(props.mod));
-        setActionResult(result += parseInt(props.mod))
+        
+        setActionResult(result += parseInt(props.toHit))
         rollDamage(props.diceAmt,props.dice)
             // return result;
         }
@@ -210,7 +214,7 @@ const rollDice = (num) => {
         to: [{opacity: 0}, { opacity: 1}],
         from: {opacity: 1},
         config: {
-            duration: 300,
+            duration: 200,
         }
          
     })
@@ -223,12 +227,14 @@ const rollDice = (num) => {
     return (
         <Div>
             <h5  className='action-name'>{props.name}</h5>
+            
             <div className="dice-info">
+                <p className="to-hit">+{props.toHit} to hit</p>
                 <p className="type">{props.type}</p>
                 <div className='die'>
                     <p className='die-amt'>{props.diceAmt}</p>
                     <p className='damage-die'>d{props.dice}</p>
-                    {props.mod > 0 ? <p> + {props.mod}</p> :'' }
+                    {props.dmg_mod > 0 ? <p> + {props.dmg_mod}</p> :'' }
                     <p>{props.damageType} </p>
                 </div>
                 {criticals.fail ? <animated.p style={critAnimate}>Critical Fail!</animated.p> : '' }           
@@ -238,7 +244,7 @@ const rollDice = (num) => {
                     {actionDamage > 0 ? <animated.p style={critAnimate} className='action-damage'>{actionDamage} DAM</animated.p>: '' }
                 </animated.div>  
             </div>
-            <button className='atk' onClick={()=>rollDice(20)}>Attack</button> 
+            <button className='atk' onClick={()=>rollDice(20)}><i className="fas fa-dice-d20"></i></button> 
         </Div>
     );
 }
