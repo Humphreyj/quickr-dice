@@ -7,20 +7,19 @@ import Load from './Loader';
 
 
 const FormWrap = styled.div`
-background-color: rgba(0,0,0,.3);
+background-color: #111;
 color: white;
+text-shadow: 3px 2px 2px #777;
+width: 100%;
 text-shadow: 2px 2px 2px #111;
-width: 30%;
-border-radius: 8px;
+
 margin: 0 auto;
 padding: 3%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-@media (max-width: 800px) {
-    width: 90%;
-}
+
 h4 {
     font-size: 2.2em;
     text-align: center;
@@ -28,7 +27,7 @@ h4 {
     
 }
 form {
-    margin-top: 5em;
+   
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,14 +38,23 @@ form {
         font-size: 1.3em;
         border-radius 8px;
         font-family: 'Gelasio', serif;
+        margin: .6em 0;
+    } 
+    select {
+        margin: .6em 0;
+        font-size: 1.2em;
     }
     .userInput {
-        margin: 1.5em 0;
+        margin: .5em 0;
+    }
+    p {
+        font-size: 1.4em;
     }
 }
 button {
     font-size: 1.3em;
     padding: 3%;
+    margin-top: .6em;
     border-radius: 8px;
     font-family: 'Gelasio', serif;
     

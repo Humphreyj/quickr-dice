@@ -6,11 +6,10 @@ import Load from './Loader';
 
 
 const FormWrap = styled.div`
-background-color: rgba(0,0,0,.3);
+background-color: #111;
 color: white;
-text-shadow: 2px 2px 2px #111;
-width: 20em;
-margin: 0 auto;
+text-shadow: 3px 2px 2px #777;
+width: 100%;
 padding: 3%;
 height: 35em;
 display: flex;

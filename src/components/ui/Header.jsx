@@ -7,9 +7,12 @@ background-color: #111;
 color: white;
 text-shadow: 3px 2px 2px #777;
 height: 5em;
-margin-top: -2em;
-padding-top: 1em;
+margin-top: -1em;
+padding-top: 2em;
+padding-left: 4%;
 font-family: 'Raleway', serif;
+text-align: center;
+
 
 a {
     color: white;

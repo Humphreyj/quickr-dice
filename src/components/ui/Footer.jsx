@@ -6,8 +6,9 @@ background-color: #111;
 color: white;
 text-shadow: 3px 2px 2px #777;
 height: 5em;
-padding: 2%;
-margin-top: 1em;
+padding: 4%;
+text-align: center;
+
 `
 
 
@@ -15,7 +16,7 @@ const Header = () => {
     return (
 
         <Div>
-            <p>Quick Dice</p>
+            <p>Quick Dice &copy; 2020</p>
         </Div>
     );
 }
