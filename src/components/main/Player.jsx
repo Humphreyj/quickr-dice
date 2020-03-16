@@ -40,6 +40,7 @@ const Div = styled.div`
 
 .logout-button {
     display: flex;
+    padding-top: 6%;
     justify-content: center;
     align-items: center;
 }

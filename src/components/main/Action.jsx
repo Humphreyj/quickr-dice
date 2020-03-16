@@ -32,9 +32,14 @@ border: 1px solid black;
     font-size: 1.3em;
     font-weight: bold;
     text-shadow: 1px 1px 1px #777;
-
+        .to-hit {
+            margin: -1em 0em 2em 0em;
+            @media(min-width: 1000px) {
+                margin 0 .5em;
+            }
+        }
         p {
-            margin: .5em .5em;
+            margin: .8em .5em;
         }.type {
             margin: -1.2em 0 0 0;
             @media(min-width: 1000px) {
@@ -59,6 +64,8 @@ border: 1px solid black;
         }
 }
 
+
+
 .action-result {
     margin-left: 3em;
     font-size: 1.2em;
@@ -70,9 +77,9 @@ border: 1px solid black;
 }
 
 .atk {
-    font-size: 1em;
+    font-size: 1.2em;
     width: 3.8em;
-    height: 1.5em;
+    height: 1.8em;
     text-align: center;
     background-color: #111;
     color: white;
@@ -220,7 +227,7 @@ const rollDice = (num) => {
     })
 
     const critAnimate = useSpring({
-        color: actionResult - parseInt(props.mod) === 20 ? 'green': "black",
+        color: actionResult - parseInt(props.toHit) === 20 ? 'green': "black",
         textDecoration: criticals.fail ? 'line-through': "none",
         textDecorationColor: 'red'
     })
