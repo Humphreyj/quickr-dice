@@ -8,6 +8,9 @@ text-shadow: 3px 2px 2px #777;
 height: 5em;
 padding: 4%;
 text-align: center;
+p {
+    margin-top: 3em;
+}
 
 `
 
