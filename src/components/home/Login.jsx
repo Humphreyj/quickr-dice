@@ -69,7 +69,7 @@ const Login = (props) => {
         if(validation.usernameVal || validation.passwordVal || credentials.username === '' || credentials.password==='') {
             setValidation({...validation,usernameVal: true,passwordVal: true})
         }else {
-            axiosWithAuth().post('http://localhost:3030/api/auth/login', credentials)
+            axiosWithAuth().post('https://quick-dice.herokuapp.com/api/auth/login', credentials)
             .then(res => {
             localStorage.setItem('token', res.data.token);
             console.log(res)

@@ -34,7 +34,7 @@ const PlayerActions = (props) => {
         
             const id = localStorage.getItem('user_id')
             axiosWithAuth()
-                .get(`http://localhost:3030/api/users/${id}/actions`)
+                .get(`https://quick-dice.herokuapp.com/api/users/${id}/actions`)
                 .then(res => {
                     console.log(res)
                     setActions(res.data)

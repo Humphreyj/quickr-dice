@@ -84,7 +84,7 @@ const Registration = (props) => {
             setValidation({...validation,usernameVal: true,passwordVal: true})
             
         }else {
-            axiosWithAuth().post('http://localhost:3030/api/auth/register', credentials)
+            axiosWithAuth().post('https://quick-dice.herokuapp.com/api/auth/register', credentials)
             .then(res => {
             localStorage.setItem('token', res.data.token);
             props.history.push('/login');

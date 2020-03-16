@@ -109,7 +109,7 @@ const ActionForm = (props) => {
 
     const submitHandler = e => {
         e.preventDefault();
-        axiosWithAuth().post(`http://localhost:3030/api/users/${id}/actions`, newAction)
+        axiosWithAuth().post(`https://quick-dice.herokuapp.com/api/users/${id}/actions`, newAction)
         .then(res => {
             console.log(res)
         })

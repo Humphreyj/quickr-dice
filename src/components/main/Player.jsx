@@ -76,7 +76,7 @@ const Player = () => {
     useEffect(() => {
         const id = localStorage.getItem('user_id')
         axiosWithAuth()
-            .get(`http://localhost:3030/api/users/${id}`)
+            .get(`https://quick-dice.herokuapp.com/api/users/${id}`)
             .then(res => {
                 console.log(res)
                 setPlayerStats({...player,playerName: res.data.char_name, race: res.data.race, class: res.data.class})
@@ -95,7 +95,7 @@ const Player = () => {
 
     const handleLogout = (e) => {
         localStorage.clear()
-        axiosWithAuth().get('http://localhost:3030/api/auth/logout')
+        axiosWithAuth().get('https://quick-dice.herokuapp.com/api/auth/logout')
         .then(res => {
             console.log(res)
         })
