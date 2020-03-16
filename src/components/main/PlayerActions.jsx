@@ -50,15 +50,15 @@ const PlayerActions = (props) => {
         
     }, [])
 
-    const deleteAction = (id) => {
-        axiosWithAuth().delete(`https://quick-dice.herokuapp.com/api/actions/${id}`)
+    const deleteAction = (props) => {
+        axiosWithAuth().delete(`https://quick-dice.herokuapp.com/api/actions/${props}`)
         .then(response => {
             console.log(response)
         })
         .catch(err => {
             console.log(err)
         })
-        setActions({...actions.filter(item => item.id !== id)})
+        setActions({...actions.filter(item => item.id !== props)})
         
     }
     return (
