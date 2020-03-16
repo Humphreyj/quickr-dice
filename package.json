@@ -1,6 +1,5 @@
 {
   "name": "quick-dice",
-  "proxy": "http://localhost:3030",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
