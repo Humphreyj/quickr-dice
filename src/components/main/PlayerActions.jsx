@@ -24,6 +24,11 @@ button {
     }
 }
 
+.error {
+    text-align: center;
+    font-size: 2em;
+}
+
 `
 
 const PlayerActions = (props) => {
@@ -76,7 +81,7 @@ const PlayerActions = (props) => {
                     deleteAction={deleteAction}
                      />
                 )
-            }) : <h5>You have no actions!</h5> }
+            }) : <h5 className = 'error'>You have no actions, add one below!</h5> }
             
             <button onClick={()=> {
                 setAddingAction(true);
