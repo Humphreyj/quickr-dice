@@ -10,7 +10,7 @@ background-color: #111;
 color: white;
 text-shadow: 3px 2px 2px #777;
 width: 100%;
-padding: 3%;
+padding: 3% 0;
 height: 35em;
 display: flex;
 flex-direction: column;
@@ -65,6 +65,7 @@ const Login = (props) => {
 
     const login = e => {
         e.preventDefault();
+        setLoading({...loading,isLoading: true})
         if(validation.usernameVal || validation.passwordVal || credentials.username === '' || credentials.password==='') {
             setValidation({...validation,usernameVal: true,passwordVal: true})
         }else {
@@ -81,10 +82,10 @@ const Login = (props) => {
             .catch(err => {
                 console.log(err);
             })
-            setLoading({...loading,isLoading: true})
-            setTimeout(()=> {
-                setLoading({...loading,isLoading: false})
-            },2000)
+            
+            
+            // setLoading({...loading,isLoading: false})
+            
             console.log(credentials)
             
             

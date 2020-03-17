@@ -14,7 +14,7 @@ width: 100%;
 text-shadow: 2px 2px 2px #111;
 
 margin: 0 auto;
-padding: 3%;
+padding: 3% 0;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -88,6 +88,7 @@ const Registration = (props) => {
 
     const register = e => {
         e.preventDefault();
+        setLoading({...loading,isLoading: true})
         if(validation.usernameVal || validation.passwordVal || validation.charVal) {
             setValidation({...validation,usernameVal: true,passwordVal: true})
             
@@ -101,11 +102,12 @@ const Registration = (props) => {
             console.log(credentials)
             
             })
-            setLoading({...loading,isLoading: true})
-            setTimeout(()=> {
-                setLoading({...loading,isLoading: false})
-            },2000)
+            
+            
+               
+            
         }
+        // setLoading({...loading,isLoading: false})
     }
     const handleChange = e => {
         setCredentials({
@@ -153,7 +155,7 @@ const Registration = (props) => {
         <div >
             
 
-            { loading.isLoading ? <FormWrap><h4>Logging in...</h4> <Load /> </FormWrap>   :
+            { loading.isLoading ? <FormWrap><h4>Thank You! Please Wait...</h4> <Load /> </FormWrap>   :
             <FormWrap>
                 <h4>Register here!</h4>
             <form onSubmit={register}>
