@@ -123,6 +123,7 @@ const ActionForm = (props) => {
         
         console.log(props.actions);
         setNewAction({
+        id: 0,
         name: '',
         type: '',
         damageType:'',
